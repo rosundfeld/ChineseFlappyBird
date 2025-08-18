@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Bird : MonoBehaviour
 {
@@ -6,7 +8,9 @@ public class Bird : MonoBehaviour
     public float jumpForce = 5f;
     public Rigidbody2D rig;
     public float rotationSpeed;
-   
+    [SerializeField] public TextMeshProUGUI scoreText;
+    public int score = 0;
+
     void Start()
     {
         fixedXPosition = transform.position.x;
@@ -14,6 +18,11 @@ public class Bird : MonoBehaviour
 
     void Update()
     {
+        if (scoreText != null)
+        {
+            scoreText.text = score.ToString();
+        }
+
         Vector3 currentPosition = transform.position;
         currentPosition.x = fixedXPosition;
         transform.position = currentPosition;
@@ -24,6 +33,14 @@ public class Bird : MonoBehaviour
         {
             rig.linearVelocity = new Vector2(rig.linearVelocityX, 0f);
             rig.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Score"))
+        {
+            score += 1;
         }
     }
 }

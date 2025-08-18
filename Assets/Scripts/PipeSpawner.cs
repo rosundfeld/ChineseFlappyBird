@@ -1,8 +1,10 @@
 using UnityEngine;
+using TMPro;
 
 public class PipeSpawner : MonoBehaviour
 {
     public GameObject pipe;
+    public TextMeshProUGUI scoreText;
     public float spawnRate;
     public float maxY;
     public float minY;
