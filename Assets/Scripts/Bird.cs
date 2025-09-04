@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
@@ -101,19 +102,21 @@ public class Bird : MonoBehaviour
         transform.position = currentPosition;
 
         transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(Time.timeScale != 0f)
         {
-            rig.linearVelocity = new Vector2(rig.linearVelocityX, 0f);
-            rig.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            playJumpSound(audioInx);
-            if (audioInx >= 2)
+            if (Input.GetMouseButtonDown(0))
             {
-                audioInx = 0;
-            }
-            else
-            {
-                audioInx += 1;
+                rig.linearVelocity = new Vector2(rig.linearVelocityX, 0f);
+                rig.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                playJumpSound(audioInx);
+                if (audioInx >= 2)
+                {
+                    audioInx = 0;
+                }
+                else
+                {
+                    audioInx += 1;
+                }
             }
         }
     }
