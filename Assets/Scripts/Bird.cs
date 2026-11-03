@@ -104,7 +104,8 @@ public class Bird : MonoBehaviour
         transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
         if(Time.timeScale != 0f)
         {
-            if (Input.GetMouseButtonDown(0))
+            // WebGL mobile doesn't reliably simulate mouse from touch
+            if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
             {
                 rig.linearVelocity = new Vector2(rig.linearVelocityX, 0f);
                 rig.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
